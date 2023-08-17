@@ -150,7 +150,7 @@ function handleEqual() {
     result = eval(calculation); 
     inputElement = result.toString(); 
     calculation += " ="; 
-    
+
     updateDisplay(); 
   }
 }
@@ -184,17 +184,4 @@ function calculate(num1, num2, op) {
 
 document.addEventListener("DOMContentLoaded", init);
 
-//création d'une fonction avec Eval; 
-// Créer une fonction eval personnalisée qui prend une chaîne en paramètre
-function myEval(str) {
-  // Créer une nouvelle fonction anonyme qui renvoie l'évaluation de la chaîne
-  const func = new Function("return " + str);
-  // Appeler la fonction et renvoyer sa valeur
-  return func();
-}
-
-// Utiliser la fonction eval personnalisée pour afficher les résultats des opérations
-console.log(myEval("2 + 2")); // 4
-console.log(myEval("3 * (4 - 1)")); // 9
-console.log(myEval("Math.sqrt(16)")); // 4
 
