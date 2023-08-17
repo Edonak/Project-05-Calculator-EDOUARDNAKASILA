@@ -1,206 +1,179 @@
-import { calculate } from './calculator.js';
+//import { calculate } from './calculator.js';
 
 // TODO: Faire la manipulation du DOM dans ce fichier
 
+// Initialisation des éléments du DOM
+const inputElement = document.getElementById("input"); 
+const calculationElement = document.getElementById("calcul"); 
+const digitButtons = document.querySelectorAll(".digit");
+const operatorButtons = document.querySelectorAll("#plus, #minus, #times, #divideby, #equals"); 
+const clearButton = document.getElementById("clear");
+const resetButton = document.getElementById("reset");
+const plusMinusButton = document.getElementById("plusoumoins");
 const percentageButton = document.getElementById("percentage");
 const dotButton = document.querySelector(".dot"); 
+const equalEl = document.querySelector(".equals");
 
-let input ="";
-let operator ="";
-let calculation ="";
-let result = "";
-let hasDecimal = false;
-const digitButtons = document.querySelectorAll(".digit");
-const inputElement = document.querySelector("#input");
-const equalEl = document.querySelector("#equals");
-const calculElement = document.querySelector("#calcul");
-const operatorAdd = document.querySelector("#plus");
-const operatorSous = document.querySelector("#minus");
-const operatorMulti = document.querySelector("#times");
-const operatorDiv = document.querySelector("#divideby");
-const resetButton = document.querySelector("#reset");
-const clearButton = document.getElementById("clear");
-const btnSing = document.querySelector(".secondary");
-const plusMinusButton = document.getElementById("plusoumoins");
+// Déclaration des variables globales
+let input = ""; 
+let calculation = "";
+let result = null; 
+let operator = ""; 
+let hasDecimal = false; 
+let maxLength = 10; 
+// Initialisation calculatrice et écouteurs d'événements aux boutons
+function init() {
+  digitButtons.forEach((button) => {
+    button.addEventListener("click", handleDigit);
+  });
+  operatorButtons.forEach((button) => {
+    button.addEventListener("click", handleOperator);
+  });
+  clearButton.addEventListener("click", handleClear);
+  resetButton.addEventListener("click", handleReset);
+  plusMinusButton.addEventListener("click", handlePlusMinus);
+  percentageButton.addEventListener("click", handlePercentage);
+  dotButton.addEventListener("click", handleDigit);
+  equalEl.addEventListener("click", handleEqual); 
 
+  updateDisplay();
+}
 
-  function Number0(para){
-    result += "7";
-    viewResultat();
-    para.preventDefault();
-  };
-  function Number1(){
-    result += "8";
-    viewResultat();
-  };
-  function Number2(){
-    result += "9";
-    viewResultat();
-  };
-  function Number3(){
-    result += "4";
-    viewResultat();
-  };
-  function Number4(){
-    result += "5";
-    viewResultat();
-  };
-  function Number5(){
-    result += "6";
-    viewResultat();
-  };
-  function Number6(){
-    result += "1";
-    viewResultat();
-  };
-  function Number7(){
-    result += "2";
-    viewResultat();
-  };
-  function Number8(){
-    result += "3";
-    viewResultat();
-  };
-  function Number9(){
-    result += ".";
-    viewResultat();
-  };
-  function Number10(){
-    result += "0";
-    viewResultat();
-  };
+//conversion des boutons submit
+let newOperators = [];
+for (let i = 0; i < operatorButtons.length; i++) {
+    const element = operatorButtons[i];
+    element.type = "button";
+    newOperators.push(element);
+}
 
-  function clickBtbn(button){
-    if(button === digitButtons[0]){
-        button.addEventListener('click', Number0);
-    }else if(button === digitButtons[1]){
-        button.addEventListener('click', Number1);
-    }else if(button === digitButtons[2]){
-        button.addEventListener('click', Number2);
-    }else if(button === digitButtons[3]){
-        button.addEventListener('click', Number3);
-    }else if(button === digitButtons[4]){
-        button.addEventListener('click', Number4);
-    }else if(button === digitButtons[5]){
-        button.addEventListener('click', Number5);
-    }else if(button === digitButtons[6]){
-        button.addEventListener('click', Number6);
-    }else if(button === digitButtons[7]){
-        button.addEventListener('click', Number7);
-    }else if(button === digitButtons[8]){
-        button.addEventListener('click', Number8);
-    }else if(button === digitButtons[9]){
-        button.addEventListener('click', Number9);
-    }else if(button === digitButtons[10]){
-        button.addEventListener('click', Number10);
-    }else{
-        console.log("Error");
-    }
-  };
+function updateDisplay() {
+  inputElement.value = input;
+  calculationElement.textContent = calculation;
+}
 
-  function viewResultat(){
-    const conversionTonumber = result;
-    inputElement.value = conversionTonumber;
-  };
+function handleDigit(event) {
+  const digit = event.target.textContent;
+  if (input === "" || input === result.toString()) {
+    input = "";
+    result = 0;
+    hasDecimal = false;
+  }
 
-
-  function addition(para){
-    result += "+";
-    calculElement.innerHTML = "+";
-    inputElement.value='';
-    const conversionTonumber = result;
-    calculElement.innerHTML = conversionTonumber;
-    para.preventDefault();
-  };
-
-    function soustraction(para){
-        result += "-";
-      calculElement.innerHTML = "-";
-      inputElement.value='';
-      const conversionTonumber = result;
-      calculElement.innerHTML = conversionTonumber;
-      para.preventDefault();
-    };
-  
-  function equal(para){
-    const valueInput = eval(result);
-    inputElement.value = "=" + valueInput;
-    calculElement.innerHTML = result  ;
-    para.preventDefault();
-  };
-
-  function multiplication(para){
-    result += "*";
-    calculElement.innerHTML = "x";
-      inputElement.value='';
-      const conversionTonumber = result;
-      calculElement.innerHTML = conversionTonumber;
-      para.preventDefault();
-  };
-  function division(para){
-    result += "/";
-    vieuwCacul.innerHTML = ":";
-    inputElement.value='';
-    const conversionTonumber = result;
-    vieuwCacul.innerHTML = conversionTonumber;
-    para.preventDefault();
-  };
-
-  function handlePlusMinus() {
-    if (input !== "" && input !== "0") {
-      if (input.startsWith("-")) {
-        input = input.slice(1);
-      } else {
-        input = "-" + input;
+  // Vérification si l'entrée est inférieure à la longueur maximale
+  if (input.length < maxLength) {
+    if (digit === ".") {
+     if (!hasDecimal) {
+        input += digit;
+        hasDecimal = true;
       }
-      updateDisplay();
-    }
-  }
-  function clearbtn(para){
-    result += "";
-    calculElement.innerHTML = "-";
-    inputElement.value='';
-    const conversionTonumber = result;
-    calculElement.innerHTML = conversionTonumber;
-    para.preventDefault();
-  }
-  function handleClear() {
-    if (input !== "") {
-      input = "";
-      hasDecimal = false;
     } else {
-      calculation = "";
-      operator = "";
+      input += digit;
     }
     updateDisplay();
   }
-  function handleReset(){
-    calculElement.innerHTML = "";
-    inputElement.innerHTML="";
-  };
-  
-  operatorAdd.addEventListener('click', addition);
-  equalEl.addEventListener('click' , equal);
-  operatorSous.addEventListener('click', soustraction);
-  operatorMulti.addEventListener('click', multiplication);
-  operatorDiv.addEventListener('click', division);
-  resetButton.addEventListener('click', handleReset);
-  clearButton.addEventListener("click", handleClear);
-  plusMinusButton.addEventListener("click", handlePlusMinus);
-  btnSing.addEventListener('click' , clearbtn);
+}
 
-  digitButtons.forEach(clickBtbn);
-  document.addEventListener("DOMContentLoaded", init);
-  console.log(eval("2*4/2"));
+// Gestion de l'entrée des opérateurs par l'utilisateur
+function handleOperator(event) {
+  const newOperator = event.target.textContent;
+
+  if (input !== "") {
+    if (calculation === "") {
+      result = parseFloat(input);
+      calculation = input;
+    } else {
+      if (operator !== "") {
+        result = calculate(result, parseFloat(input), operator);
+        calculation += " " + input;
+      }
+    }
+    // Affectation du nouvel opérateur à l'opérateur et au calcul
+    operator = newOperator;
+    calculation += " " + operator;
+
+    if (operator === "=") {
+     input = result.toString();
+      operator = "";
+      calculation = "";
+    } else {
+      input = "";
+      hasDecimal = false;
+    }
+    updateDisplay();
+  }
+}
+
+// Gestion de l'effacement de l'entrée ou du calcul de l'utilisateur
+function handleClear() {
+  if (input !== "") {
+    input = "";
+    hasDecimal = false;
+  } else {
+    calculation = "";
+    operator = "";
+  }
+  updateDisplay();
+}
+
+// Réinitialisation de la calculatrice à son état initial
+function handleReset() {
+  input = "";
+  calculation = "";
+  result = 0;
+  operator = "";
+  hasDecimal = false;
+  updateDisplay();
+}
+
+// Inversion du signe de l'entrée de l'utilisateur
+function handlePlusMinus() {
+  if (input !== "" && input !== "0") {
+    if (input.startsWith("-")) {
+      input = input.slice(1);
+    } else {
+      input = "-" + input;
+    }
+    updateDisplay();
+  }
+}
+
+// Conversion de l'entrée de l'utilisateur en pourcentage
+function handlePercentage() {
+  if (input !== "") {
+    input = (parseFloat(input) / 100).toString();
+   hasDecimal = input.includes(".");
+  updateDisplay();
+  }
+}
+
+// Calcul entre deux nombres et un opérateur donnés
+function calculate(num1, num2, op) {
+  let res;
+switch (op) {
+    case "+":
+      res = num1 + num2;
+      break;
+    case "-":
+      res = num1 - num2;
+      break;
+    case "×":
+      res = num1 * num2;
+      break;
+    case "/":
+      if (num2 === 0) {
+        alert('Impossible de diviser par zéro');
+        return; 
+      }
+      res = num1 / num2;
+      break;
+    default:
+      res = num1;
+  }
+
+  return res;
+}
+document.addEventListener("DOMContentLoaded", init);
 
 
-  
-
-  
-
-  
- 
-
-  
-   
- 
+//création d'une fonction avec Eval; 
