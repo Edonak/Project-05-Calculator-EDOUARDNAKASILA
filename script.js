@@ -1,26 +1,24 @@
 //import { calculate } from './calculator.js';
-
 // TODO: Faire la manipulation du DOM dans ce fichier
-
 // Initialisation des éléments du DOM
-const inputElement = document.getElementById("input"); 
-const calculationElement = document.getElementById("calcul"); 
+const inputElement = document.getElementById("input");
+const calculationElement = document.getElementById("calcul");
 const digitButtons = document.querySelectorAll(".digit");
-const operatorButtons = document.querySelectorAll("#plus, #minus, #times, #divideby, #equals"); 
+const operatorButtons = document.querySelectorAll("#plus, #minus, #times, #divideby");
 const clearButton = document.getElementById("clear");
 const resetButton = document.getElementById("reset");
 const plusMinusButton = document.getElementById("plusoumoins");
 const percentageButton = document.getElementById("percentage");
-const dotButton = document.querySelector(".dot"); 
-const equalEl = document.querySelector(".equals");
+const dotButton = document.querySelector(".dot");
+const equalEl = document.querySelector("#equals");
 
 // Déclaration des variables globales
-let input = ""; 
+let input = "";
 let calculation = "";
-let result = null; 
-let operator = ""; 
-let hasDecimal = false; 
-let maxLength = 10; 
+let result = null;
+let operator = "";
+let hasDecimal = false;
+let maxLength = 10;
 // Initialisation calculatrice et écouteurs d'événements aux boutons
 function init() {
   digitButtons.forEach((button) => {
@@ -34,18 +32,16 @@ function init() {
   plusMinusButton.addEventListener("click", handlePlusMinus);
   percentageButton.addEventListener("click", handlePercentage);
   dotButton.addEventListener("click", handleDigit);
-  equalEl.addEventListener("click", handleEqual); 
+  equalEl.addEventListener("click", handleEqual);
 
   updateDisplay();
 }
 
 //conversion des boutons submit
-let newOperators = [];
-for (let i = 0; i < operatorButtons.length; i++) {
-    const element = operatorButtons[i];
-    element.type = "button";
-    newOperators.push(element);
-}
+const form = document.querySelector('form');
+form.addEventListener('submit', event => {
+  event.preventDefault();
+});
 
 function updateDisplay() {
   inputElement.value = input;
@@ -63,7 +59,7 @@ function handleDigit(event) {
   // Vérification si l'entrée est inférieure à la longueur maximale
   if (input.length < maxLength) {
     if (digit === ".") {
-     if (!hasDecimal) {
+      if (!hasDecimal) {
         input += digit;
         hasDecimal = true;
       }
@@ -93,7 +89,7 @@ function handleOperator(event) {
     calculation += " " + operator;
 
     if (operator === "=") {
-     input = result.toString();
+      input = result.toString();
       operator = "";
       calculation = "";
     } else {
@@ -142,15 +138,27 @@ function handlePlusMinus() {
 function handlePercentage() {
   if (input !== "") {
     input = (parseFloat(input) / 100).toString();
-   hasDecimal = input.includes(".");
-  updateDisplay();
+    hasDecimal = input.includes(".");
+    updateDisplay();
+  }
+}
+
+// Une fonction qui effectue le calcul et affiche le résultat
+function handleEqual() {
+  if (inputElement && operatorButtons) {
+    calculation += ` ${operatorButtons} ${inputElement}`; 
+    result = eval(calculation); 
+    inputElement = result.toString(); 
+    calculation += " ="; 
+    
+    updateDisplay(); 
   }
 }
 
 // Calcul entre deux nombres et un opérateur donnés
 function calculate(num1, num2, op) {
   let res;
-switch (op) {
+  switch (op) {
     case "+":
       res = num1 + num2;
       break;
@@ -160,10 +168,10 @@ switch (op) {
     case "×":
       res = num1 * num2;
       break;
-    case "/":
+    case ":":
       if (num2 === 0) {
         alert('Impossible de diviser par zéro');
-        return; 
+        return;
       }
       res = num1 / num2;
       break;
@@ -173,7 +181,20 @@ switch (op) {
 
   return res;
 }
+
 document.addEventListener("DOMContentLoaded", init);
 
-
 //création d'une fonction avec Eval; 
+// Créer une fonction eval personnalisée qui prend une chaîne en paramètre
+function myEval(str) {
+  // Créer une nouvelle fonction anonyme qui renvoie l'évaluation de la chaîne
+  const func = new Function("return " + str);
+  // Appeler la fonction et renvoyer sa valeur
+  return func();
+}
+
+// Utiliser la fonction eval personnalisée pour afficher les résultats des opérations
+console.log(myEval("2 + 2")); // 4
+console.log(myEval("3 * (4 - 1)")); // 9
+console.log(myEval("Math.sqrt(16)")); // 4
+
