@@ -21,6 +21,7 @@ let result = null;
 let operator = ""; 
 let hasDecimal = false; 
 let maxLength = 10; 
+
 // Initialisation calculatrice et écouteurs d'événements aux boutons
 function init() {
   digitButtons.forEach((button) => {
@@ -173,7 +174,5 @@ switch (op) {
 
   return res;
 }
+
 document.addEventListener("DOMContentLoaded", init);
-
-
-//création d'une fonction avec Eval; 
