@@ -5,6 +5,7 @@ let number = "";
 let operator = "";
 let calculator = "";
 let result = 0;
+let pi = 3.14;
 
 // Sélectionner les éléments du DOM
 const inputElement = document.getElementById("input");
@@ -21,6 +22,8 @@ const equalsElement = document.getElementById("equals");
 const digits = document.querySelectorAll(".digit");
 const dot = document.querySelector(".dot");
 const digitZero = document.getElementById("two-zero");
+const expo = document.getElementById("exposant");
+const piElement = document.getElementById("pi");
 
 // Ecouteurs d'événements sur les  boutons
 reset.addEventListener("click", resetAll);
@@ -32,7 +35,10 @@ multiplicate.addEventListener("click", () => addOperator("*"));
 soustraction.addEventListener("click", () => addOperator("-"));
 addition.addEventListener("click", () => addOperator("+"));
 equalsElement.addEventListener("click", calculate);
-digitZero.addEventListener("click", zeroOperator )
+digitZero.addEventListener("click", zeroOperator );
+expo.addEventListener("click", exponentiel);
+piElement.addEventListener("click", piOperator);
+
 
 const form = document.querySelector("form");
 form.addEventListener("submit", (event) => {
@@ -63,6 +69,19 @@ function zeroOperator() {
    updateDisplay();
 }
 
+function piOperator() {
+  
+}
+
+
+function exponentiel() {
+  if (calculator) {
+    result **= number ;
+    number = result.toString();
+    calculator += result;
+    updateDisplay();
+  }
+}
 function changeSign() {
   if (number) {
     number = (-number).toString();
