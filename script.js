@@ -5,7 +5,6 @@ let number = "";
 let operator = "";
 let calculator = "";
 let result = 0;
-let pi = 3.14;
 
 // Sélectionner les éléments du DOM
 const inputElement = document.getElementById("input");
@@ -70,7 +69,7 @@ function zeroOperator() {
 }
 
 function piOperator() {
-  
+  number.value = Math.PI
 }
 
 
