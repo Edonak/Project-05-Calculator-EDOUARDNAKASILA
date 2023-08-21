@@ -20,6 +20,7 @@ const addition = document.getElementById("plus");
 const equalsElement = document.getElementById("equals");
 const digits = document.querySelectorAll(".digit");
 const dot = document.querySelector(".dot");
+const digitZero = document.getElementById("two-zero");
 
 // Ecouteurs d'événements sur les  boutons
 reset.addEventListener("click", resetAll);
@@ -31,6 +32,7 @@ multiplicate.addEventListener("click", () => addOperator("*"));
 soustraction.addEventListener("click", () => addOperator("-"));
 addition.addEventListener("click", () => addOperator("+"));
 equalsElement.addEventListener("click", calculate);
+digitZero.addEventListener("click", zeroOperator )
 
 const form = document.querySelector("form");
 form.addEventListener("submit", (event) => {
@@ -54,6 +56,11 @@ function resetAll() {
 function clearInput() {
   number = "";
   updateDisplay();
+}
+
+function zeroOperator() {
+  number += "00";
+   updateDisplay();
 }
 
 function changeSign() {
