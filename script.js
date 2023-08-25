@@ -22,7 +22,6 @@ const digits = document.querySelectorAll(".digit");
 const dot = document.querySelector(".dot");
 const digitZero = document.getElementById("two-zero");
 const expo = document.getElementById("exposant");
-const piElement = document.getElementById("pi");
 
 // Ecouteurs d'événements sur les  boutons
 reset.addEventListener("click", resetAll);
@@ -36,7 +35,6 @@ addition.addEventListener("click", () => addOperator("+"));
 equalsElement.addEventListener("click", calculate);
 digitZero.addEventListener("click", zeroOperator );
 expo.addEventListener("click", exponentiel);
-piElement.addEventListener("click", piOperator);
 
 
 const form = document.querySelector("form");
@@ -66,10 +64,6 @@ function clearInput() {
 function zeroOperator() {
   number += "00";
    updateDisplay();
-}
-
-function piOperator() {
-  number.value = Math.PI
 }
 
 
