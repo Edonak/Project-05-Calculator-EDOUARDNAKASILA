@@ -8,9 +8,9 @@ let result = 0;
 
 // Sélectionner les éléments du DOM
 const inputElement = document.getElementById("input");
-const calculElement = document.getElementById("calcul");
-const reset = document.getElementById("reset");
-const clear = document.getElementById("clear");
+const resultElement = document.getElementById("calcul");
+const resetBtn = document.getElementById("reset");
+const clearBtn = document.getElementById("clear");
 const plusOuMoins = document.getElementById("plusoumoins");
 const percentage = document.getElementById("percentage");
 const division = document.getElementById("divideby");
@@ -24,8 +24,8 @@ const digitZero = document.getElementById("two-zero");
 const expo = document.getElementById("exposant");
 
 // Ecouteurs d'événements sur les  boutons
-reset.addEventListener("click", resetAll);
-clear.addEventListener("click", clearInput);
+resetBtn.addEventListener("click", resetAll);
+clearBtn.addEventListener("click", clearInput);
 plusOuMoins.addEventListener("click", changeSign);
 percentage.addEventListener("click", getPercentage);
 division.addEventListener("click", () => addOperator("/"));
