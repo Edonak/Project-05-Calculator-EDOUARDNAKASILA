@@ -1,6 +1,5 @@
 // TODO: Faire la manipulation du DOM dans ce fichier
 
-// Déclaration des variables globales
 let number = "";
 let operator = "";
 let calculator = "";
@@ -11,30 +10,30 @@ const inputElement = document.getElementById("input");
 const resultElement = document.getElementById("calcul");
 const resetBtn = document.getElementById("reset");
 const clearBtn = document.getElementById("clear");
-const plusOuMoins = document.getElementById("plusoumoins");
-const percentage = document.getElementById("percentage");
-const division = document.getElementById("divideby");
-const multiplicate = document.getElementById("times");
-const soustraction = document.getElementById("minus");
-const addition = document.getElementById("plus");
+const plusOuMoinsBtn = document.getElementById("plusoumoins");
+const percentageBtn = document.getElementById("percentage");
+const divisionBtn = document.getElementById("divideby");
+const multiplicateBtn = document.getElementById("times");
+const soustractionBtn = document.getElementById("minus");
+const additionBtn = document.getElementById("plus");
 const equalsElement = document.getElementById("equals");
 const digits = document.querySelectorAll(".digit");
 const dot = document.querySelector(".dot");
-const digitZero = document.getElementById("two-zero");
-const expo = document.getElementById("exposant");
+const digitZeroBtn = document.getElementById("two-zero");
+const expoBtn = document.getElementById("exposant");
 
 // Ecouteurs d'événements sur les  boutons
 resetBtn.addEventListener("click", resetAll);
 clearBtn.addEventListener("click", clearInput);
-plusOuMoins.addEventListener("click", changeSign);
-percentage.addEventListener("click", getPercentage);
-division.addEventListener("click", () => addOperator("/"));
-multiplicate.addEventListener("click", () => addOperator("*"));
-soustraction.addEventListener("click", () => addOperator("-"));
-addition.addEventListener("click", () => addOperator("+"));
+plusOuMoinsBtn.addEventListener("click", changeSign);
+percentageBtn.addEventListener("click", getPercentage);
+divisionBtn.addEventListener("click", () => addOperator("/"));
+multiplicateBtn.addEventListener("click", () => addOperator("*"));
+soustractionBtn.addEventListener("click", () => addOperator("-"));
+additionBtn.addEventListener("click", () => addOperator("+"));
 equalsElement.addEventListener("click", calculate);
-digitZero.addEventListener("click", zeroOperator );
-expo.addEventListener("click", exponentiel);
+digitZeroBtn.addEventListener("click", zeroOperator );
+expoBtn.addEventListener("click", exponentiel);
 
 
 const form = document.querySelector("form");
