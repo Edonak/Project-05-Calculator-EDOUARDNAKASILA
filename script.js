@@ -20,7 +20,6 @@ const equalsElement = document.getElementById("equals");
 const digits = document.querySelectorAll(".digit");
 const dot = document.querySelector(".dot");
 const digitZeroBtn = document.getElementById("two-zero");
-const expoBtn = document.getElementById("exposant");
 
 // Ecouteurs d'événements sur les  boutons
 resetBtn.addEventListener("click", resetAll);
@@ -32,9 +31,7 @@ multiplicateBtn.addEventListener("click", () => addOperator("*"));
 soustractionBtn.addEventListener("click", () => addOperator("-"));
 additionBtn.addEventListener("click", () => addOperator("+"));
 equalsElement.addEventListener("click", calculate);
-digitZeroBtn.addEventListener("click", zeroOperator );
-expoBtn.addEventListener("click", exponentiel);
-
+digitZeroBtn.addEventListener("click", zeroOperator);
 
 const form = document.querySelector("form");
 form.addEventListener("submit", (event) => {
@@ -62,18 +59,9 @@ function clearInput() {
 
 function zeroOperator() {
   number += "00";
-   updateDisplay();
+  updateDisplay();
 }
 
-
-function exponentiel() {
-  if (calculator) {
-    result **= number ;
-    number = result.toString();
-    calculator += result;
-    updateDisplay();
-  }
-}
 function changeSign() {
   if (number) {
     number = (-number).toString();
