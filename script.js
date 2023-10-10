@@ -1,5 +1,4 @@
 // TODO: Faire la manipulation du DOM dans ce fichier
-
 let number = "";
 let operator = "";
 let calculator = "";
@@ -37,7 +36,6 @@ const form = document.querySelector("form");
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 });
-// LES FUNCTIONS AUXILIAIRES
 // Mis à jour de l'affichage de l'input et du calcul
 function updateDisplay() {
   input.value = number;
