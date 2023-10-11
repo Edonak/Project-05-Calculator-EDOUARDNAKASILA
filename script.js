@@ -37,7 +37,7 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
 });
 // Mis à jour de l'affichage de l'input et du calcul
-function updateDisplay(number, calculator) {
+function updateDisplay() {
   input.value = number;
   calcul.textContent = calculator;
 }
